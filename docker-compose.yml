@@ -1,0 +1,21 @@
+version: "3"
+services:
+  app:
+    container_name: "universities_api"
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/docker/Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/universities
+      - PORT=3000
+  mongo:
+      image: mongo
+      ports:
+        - 27017:27017
+      volumes:
+        - mongodb:/data/db
+volumes:
+ mongodb:
