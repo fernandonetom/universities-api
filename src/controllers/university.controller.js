@@ -45,6 +45,25 @@ class UniversityController {
       return next(createError(500));
     }
   }
+
+  async show(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(createError(422, errors.array()));
+    }
+
+    try {
+      const { id } = req.params;
+
+      const university = await University.findById(id);
+
+      if (!university) return next(createError(404));
+
+      return res.json(university);
+    } catch (error) {
+      return next(createError(500));
+    }
+  }
 }
 
 const universityController = new UniversityController();

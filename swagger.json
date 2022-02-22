@@ -100,7 +100,21 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/University"
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "state-province": {
+                            "type": "string"
+                          }
+                        }
                       }
                     }
                   }
@@ -111,69 +125,21 @@
         }
       }
     },
-    "/posts/{id}":{
-      "put": {
-        "summary": "Update post",
-        "tags": ["Posts"],
-        "security": [{"bearerAuth": []}],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "params",
-            "description": "Post Id",
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdatePostInput"
-              }
-            }
-          }
-        },
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "422": {
-            "description": "Invalid body content"
-          },
-          "500": {
-            "description": "server error"
-          },
-          "201": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/PostResponse"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/universities/{id}":{
       "get": {
-        "summary": "List post details",
-        "tags": ["Posts"],
-        "security": [{"bearerAuth": []}],
+        "summary": "List university details",
+        "tags": ["Universities"],
         "parameters": [
           {
             "name": "id",
-            "in": "params",
-            "description": "Post Id",
+            "in": "path",
+            "description": "University Id",
             "required": true
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
           "404": {
-            "description": "Post not found"
+            "description": "University not found"
           },
           "500": {
             "description": "server error"
@@ -184,7 +150,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/PostResponse"
+                  "$ref": "#/components/schemas/University"
                 }
               }
             }
