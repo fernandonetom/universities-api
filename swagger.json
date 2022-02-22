@@ -16,21 +16,20 @@
   "paths": {
     "/universities":{
       "post": {
-        "summary": "Create a new post",
-        "tags": ["Posts"],
-        "security": [{"bearerAuth": []}],
+        "summary": "Create a new University",
+        "tags": ["Universities"],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PostInput"
+                "$ref": "#/components/schemas/UniversityInput"
               }
             }
           }
         },
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "400": {
+            "description": "University already exists"
           },
           "422": {
             "description": "Invalid body content"
@@ -44,7 +43,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/PostResponse"
+                  "$ref": "#/components/schemas/University"
                 }
               }
             }
@@ -158,32 +157,68 @@
         }
       },
       "delete": {
-        "summary": "Remove post",
-        "tags": ["Posts"],
-        "security": [{"bearerAuth": []}],
+        "summary": "Remove university",
+        "tags": ["Universities"],
         "parameters": [
           {
             "name": "id",
-            "in": "params",
-            "description": "Post Id",
+            "in": "path",
+            "description": "University Id",
             "required": true
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
           "404": {
-            "description": "Post not found"
+            "description": "University not found"
           },
           "500": {
             "description": "server error"
           },
           "204": {
             "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update university",
+        "tags": ["Universities"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "University Id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UniversityInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "University already exists"
+          },
+          "422": {
+            "description": "Invalid body content"
+          },
+          "500": {
+            "description": "server error"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/University"
+                }
+              }
+            }
           }
         }
       }
@@ -224,6 +259,37 @@
           }
         },
         "required": ["name", "email", "password", "image"]
+      },
+      "UniversityInput": {
+        "type": "object",
+        "properties": {
+          "state-province": {
+            "type": "string",
+            "nullable": true
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "country": {
+            "type": "string"
+          },
+          "web_pages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "alpha_two_code": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "country", "domains", "alpha_two_code", "web_pages"]
       }
     }
   }
