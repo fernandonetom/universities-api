@@ -53,6 +53,7 @@
       },
       "get": {
         "summary": "List all universities",
+        "description": "Use this route to list all universities and filter by *country*.",
         "tags": ["Universities"],
         "parameters": [
           {

@@ -19,7 +19,13 @@ class UniversityController {
 
       const cursor = University
         .collection
-        .find(query);
+        .find(query, {
+          projection: {
+            name: 1,
+            country: 1,
+            'state-province': 1,
+          },
+        });
 
       const totalOfItems = await cursor.count();
       const totalOfPages = Math.ceil(totalOfItems / limit);
