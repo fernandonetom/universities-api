@@ -9,28 +9,10 @@
 git clone https://github.com/fernandonetom/universities-api.git && cd universities-api
 ```
 
-### Install dependencies
+### Run with docker
 
 ```bash
-npm i
-```
-
-### Create a `.env` file
-
-```bash
-MONGO_URL=mongodb_url
-```
-
-### Populate database
-
-```bash
-npm run populate
-```
-
-### Running this app local
-
-```bash
-npm run start
+docker-compose up -d
 ```
 
 ### Swagger documentation
